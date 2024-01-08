@@ -17,6 +17,31 @@ app.get('/', async (req, res) => {
   res.status(200).send({
     message: 'Hello from ChatNeo!'
   })
+
+  // TRAIN THE MODEL WITH LATEST DATA HERE:
+
+  
+  // TRAIN IT LIKE THIS: (But ofcourse, change it a bit)
+  // openai.ChatCompletion.create(
+  //   model="gpt-3.5-turbo",
+  //   messages=[
+  //         {"role": "system", "content": "You are a helpful assistant."},
+  //         {"role": "user", "content": "Tell me a joke."},
+  //         {"role": "assistant", "content": "Sure, here's a joke: Why did the chicken cross the road?"},
+  //         {"role": "user", "content": "I don't know, why did the chicken cross the road?"},
+  //         {"role": "assistant", "content": "To get to the other side!"},
+  //         # Add more user and assistant messages for training
+  //     ]
+  // )
+
+  // Changes maybe like this:
+  // const messages = [
+  //   { role: 'system', content: 'You are a helpful assistant.' },
+  //   { role: 'user', content: 'What are the requirements for obtaining a KTP?' },
+  //   { role: 'assistant', content: 'To obtain a KTP (Kartu Tanda Penduduk), you need to provide a photocopy of Kartu Keluarga (KK) and a letter from the RT/RW.' },
+  //   // Add more training examples based on the information you provided
+  // ];
+
 })
 
 // `${prompt}`

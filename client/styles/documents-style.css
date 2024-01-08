@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Overpass Mono', monospace;
+}
+
+body {
+    height: 100vh;
+    background-color: #000;
+    /* background-image: url('https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1517&q=80'); */
+    /* background-image: url('../images/background.jpg'); */
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    /* background-position: center;  */
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover{
+    color: rgb(0, 108, 190);
+}
+
+/* Header */
+header{
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar{
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .links{
+    display: flex;
+    gap: 2rem;
+    font-weight: bold;
+}
+
+.navbar .toggle-btn{
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    /* Acts as a navbar items expander. Hide it for full display, only show it later when the screen rez is smaller */
+    display: none;
+}
+
+.action-btn{
+    background-color: rgb(0, 108, 190);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2 ease;
+}
+
+.action-btn:hover{
+    scale: 1.05;
+    color: #fff;   
+}
+
+.action-btn:active{
+    scale: 0.95;
+}
+
+/* Dropdown Menu */
+.dropdown-menu{
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    height: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dropdown-menu.open{
+    height: auto;
+}
+
+.dropdown-menu li{
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-menu li a{
+    color: white;
+}
+
+.dropdown-menu .action-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar .logo a {
+    color: white;
+}
+
+.navbar .links li a{
+    color: white;
+}
+
+
+/* Drop Downs */
+.wrapper{
+    display: flex;
+    padding-top: 50px;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.collapsible{
+    max-width: auto;
+    overflow: hidden;
+    font-weight: 500;
+}
+
+.collapsible input{
+    display: none;
+}
+
+.collapsible label{
+    position: relative;
+    font-weight: 600;
+    background-image: initial;
+    background-color: rgb(19, 21, 22);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 11px 0px, rgba(0, 0, 0, 0.08) 0px 4px 11px 0px;
+    color: rgb(141, 184, 226);
+    display: block;
+    margin-bottom: 10px;
+    width: 500px; /* Adjust horizontal length of box here */
+    margin: 10px auto;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.collapsible label:after{
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../images/arrow-white.png) no-repeat 0 0;
+    background-color: initial;
+    color: rgb(232, 230, 227);
+    transition: all 0.3s ease;
+}
+
+.collapsible input:checked + label:after{
+    transform: rotate(90deg);
+}
+
+.collapsible-text{
+    max-height: 1px;
+    overflow: hidden;
+    border-radius: 4px;
+    line-height: 1.4;
+    position: relative;
+    top: -100%;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    margin-bottom: 15px; /* To add space between collapsibles... */
+}
+
+.collapsible input:checked ~ .collapsible-text{
+    max-height: 100000px;
+    padding-bottom: 25px;
+    background: #131516;
+    color: #d8d4cf;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1), 0 4px 11px 0 rgba(0, 0, 0, 0.08);
+    opacity: 1;
+    top: 0;
+}
+
+.collapsible-text h2{
+    margin-bottom: 10px;
+    padding: 15px 15px 0;
+    color: rgb(141, 184, 226);
+}
+
+.collapsible-text p{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.collapsible-text p.paragraph-within{
+    margin-left: 20px;
+}
+
+/* Responsive Design */
+@media(max-width: 992px){
+    .navbar .links,
+    .navbar .action-btn{
+        display: none;
+    }
+
+    .navbar .toggle-btn{
+        display: block;
+    }
+    
+    .dropdown-menu{
+        display: block;
+    }
+}
+
+@media(max-width: 576px){
+    .dropdown-menu{
+        left: 2rem;
+        width: unset;
+    }
+}
+
+/* Media queries */
+
+@media screen and (max-width: 1200px)
+{
+    .form
+    {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 680px)
+{
+    .form
+    {
+		width: 90%;
+    }
+}
+
+@media screen and (max-width: 500px)
+{
+	.title
+	{
+		font-size: 40px;
+		padding-top: 6%;
+	}
+
+	.title-info
+	{
+		font-size: 13px;
+	}
+	
+	.form
+	{
+		padding: 6% 4%;
+		padding-top: 15%;
+	}
+
+	.input-group, .textarea-group
+    {
+		padding: 3% 0;
+	}
+	
+	input, textarea
+	{
+		font-size: 15px;
+	}
+
+	input:focus ~ label, input:not(:placeholder-shown) ~ label
+	{
+		top: -3.5em;
+		left: 0.1em;
+	}
+	
+	textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label
+	{
+		top: -8.5em;
+		left: 0.2em;
+    }
+    
+    button
+    {
+        font-size: 15px;
+    }
+}

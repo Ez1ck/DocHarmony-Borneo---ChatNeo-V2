@@ -1,0 +1,5 @@
+1. open two seperate terminals, one in client folder, one in server folder.
+2. in client folder, run "npm run dev"
+3. in server folder, run "npm run server"
+
+4. enjoy.

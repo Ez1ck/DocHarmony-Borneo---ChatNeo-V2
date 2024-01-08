@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../styles/contact-us-style.css" />
+
     <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
-    <title>DocHarmony Borneo</title>
+
+    <title>DocHarmony Borneo - Map</title>
   </head>
   <body>
     <header>
@@ -15,15 +17,15 @@
             <div class="logo"><a href="#">DocHarmony Borneo</a></div>
             <ul class="links">
                 <!-- Home (with welcome back, about us, or message about haven't registered/login yet?) -->
-                <li><a href="index.html">Home</a></li>
+                <li><a href="../index.html">Home</a></li>
                 <!-- Map -->
-                <li><a href="pages/map.html">Map</a></li>
+                <li><a href="map.html">Map</a></li>
                 <!-- Documents -->
-                <li><a href="pages/documents.html">Documents</a></li>
+                <li><a href="documents.html">Documents</a></li>
                 <!-- ChatNeo -->
-                <li><a href="pages/chatneo.html">ChatNeo</a></li>
+                <li><a href="chatneo.html">ChatNeo</a></li>
                 <!-- Contact Us -->
-                <li><a href="pages/contact-us.html">Contact Us</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
             </ul>
             <a href="#" class="action-btn">Get Started</a>
             <div class="toggle-btn">
@@ -33,25 +35,48 @@
 
         <div class="dropdown-menu">
             <!-- Home (with welcome back, about us, or message about haven't registered/login yet?) -->
-            <li><a href="index.html">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <!-- Map -->
-            <li><a href="pages/map.html">Map</a></li>
+            <li><a href="map.html">Map</a></li>
             <!-- Documents -->
-            <li><a href="pages/documents.html">Documents</a></li>
+            <li><a href="documents.html">Documents</a></li>
             <!-- ChatNeo -->
-            <li><a href="pages/chatneo.html">ChatNeo</a></li>
+            <li><a href="chatneo.html">ChatNeo</a></li>
             <!-- Contact Us -->
-            <li><a href="pages/contact-us.html">Contact Us</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
             <li><a href="#" class="action-btn">Get Started</a></li>
         </div>
     </header>
 
     <main>
-        <section id="hero">
-            <h1>About Us</h1>
-            We help Borneo citizens streamline administrative processes, 
-            <br> like legal documents and permits creation.
-        </section>
+        <div class="title">Contact us</div>
+        <div class="title-info">We'll get back to you soon!</div>
+
+        <form action="" method="" class="form">
+            <div class="input-group">
+                <input type="text" name="first_name" id="first-name" placeholder="First name">
+                <label for="first-name">First name</label>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" name="last_name" id="last-name" placeholder="Last Name">
+                <label for="last-name">Last name</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" name="e-mail" id="e-mail" placeholder="e-mail">
+                <label for="e-mail">e-mail</label>
+            </div>
+
+            <div class="textarea-group">
+                <textarea name="message" id="message" rows="5" placeholder="Message"></textarea>
+                <label for="message">Message</label>
+            </div>
+
+            <div class="button-div">
+                <button type="submit">Send</button>
+            </div>
+        </form>
     </main>
 
     <script>

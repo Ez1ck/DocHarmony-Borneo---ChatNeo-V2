@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../styles/map-style.css" />
+
+    <!-- OpenLayers CDNs -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+    <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
+
+    <title>DocHarmony Borneo - Map</title>
+  </head>
+  <body>
+    <header>
+        <div class="navbar">
+            <div class="logo"><a href="#">DocHarmony Borneo</a></div>
+            <ul class="links">
+                <!-- Home (with welcome back, about us, or message about haven't registered/login yet?) -->
+                <li><a href="../index.html">Home</a></li>
+                <!-- Map -->
+                <li><a href="map.html">Map</a></li>
+                <!-- Documents -->
+                <li><a href="documents.html">Documents</a></li>
+                <!-- ChatNeo -->
+                <li><a href="chatneo.html">ChatNeo</a></li>
+                <!-- Contact Us -->
+                <li><a href="contact-us.html">Contact Us</a></li>
+            </ul>
+            <a href="#" class="action-btn">Get Started</a>
+            <div class="toggle-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+
+        <div class="dropdown-menu">
+            <!-- Home (with welcome back, about us, or message about haven't registered/login yet?) -->
+            <li><a href="../index.html">Home</a></li>
+            <!-- Map -->
+            <li><a href="map.html">Map</a></li>
+            <!-- Documents -->
+            <li><a href="documents.html">Documents</a></li>
+            <!-- ChatNeo -->
+            <li><a href="chatneo.html">ChatNeo</a></li>
+            <!-- Contact Us -->
+            <li><a href="contact-us.html">Contact Us</a></li>
+            <li><a href="#" class="action-btn">Get Started</a></li>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Welcome to Map!</h1>
+            Find goverment offices/service centers and the services they offer.
+            
+            <!-- Search Bar for OpenLayers -->
+            <div class="search-wrapper">
+                <label for="search">Search For Markers by Category.</label>
+                <input type="search" id="search" data-search>
+            </div>
+
+            <!-- OpenLayers Map -->
+            <div id="map"></div>
+            <!-- OpenLayers PopUps -->
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
+            <div class="tags">
+                Tags: SIM | KTP | Surat Izin Pemakaian Senjata Api / Firearm Ownership Permit | Dukcapil | Polda
+            </div>
+        </section>        
+    </main>
+
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn')
+        const toggleBtnIcon = document.querySelector('.toggle-btn i')
+        const dropDownMenu = document.querySelector('.dropdown-menu')
+
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open')
+            const isOpen = dropDownMenu.classList.contains('open')
+
+            toggleBtnIcon.classList = isOpen
+            ? 'fa-solid fa-xmark'
+            : 'fa-solid fa-bars'
+        }
+
+        // OPENLAYERS START
+
+        // PopUps first
+        /**
+       * Elements that make up the popup.
+       */
+        const container = document.getElementById('popup');
+        const content = document.getElementById('popup-content');
+        const closer = document.getElementById('popup-closer');
+
+        /**
+         * Create an overlay to anchor the popup to the map.
+         */
+        const overlay = new ol.Overlay({
+            element: container,
+            autoPan: {
+            animation: {
+                duration: 250,
+            },
+            },
+        });
+
+        /**
+         * Add a click handler to hide the popup.
+         * @return {boolean} Don't follow the href.
+         */
+        closer.onclick = function() {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        };
+
+        const Model = [
+            // description: <--- can take html code, so if you want to put a tags in, do so.
+
+            // 0,0 on IKN
+            {
+            category: "Capital City / Ibu Kota Nusantara / IKN",
+            title: 'Titik Nol Ibukota Negara Indonesia',
+            long: 116.7088,
+            lat: -0.9730,
+            isOfficeOpen: "",
+            openingToClosingTime: "",
+            currentQueueTotal: '',
+            averageQueueTime: '',
+            crowdLevel: '',
+            queueSpeedLevel: '',
+            serviceRating: '',
+            description: '',
+            },
+
+            // Driving Examination Centers (3) -> SIM
+            {
+            category: "Driving Examination Center / SIM",
+            title: 'Kantor Layanan SIM Banjarmasin <hr>',
+            long: 114.589620,
+            lat: -3.316820,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 22 <br>',
+            averageQueueTime: 'Avg Queue Time: 4m 13s <br>',
+            crowdLevel: 'Crowd Level: Medium <br>',
+            queueSpeedLevel: 'Queue Speed: Medium <br>',
+            serviceRating: 'Service Rating: 4/5 <br>',
+            description: 'relic',
+            },
+            {
+            category: "Driving Examination Center / SIM",
+            title: 'Satpas SIM Palangkaraya <hr>',
+            long: 113.912570,
+            lat: -2.206910,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 9 <br>',
+            averageQueueTime: 'Avg Queue Time: 1m 6s <br>',
+            crowdLevel: 'Crowd Level: Low <br>',
+            queueSpeedLevel: 'Queue Speed: Fast <br>',
+            serviceRating: 'Service Rating: 5/5 <br>',
+            description: 'relic',
+            },
+            {
+            category: "Driving Examination Center / SIM",
+            title: 'Satuan Penyelenggara Administrasi SIM <hr>',
+            long: 108.999298,
+            lat: 0.943520,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 4 <br>',
+            averageQueueTime: 'Avg Queue Time: 54s <br>',
+            crowdLevel: 'Crowd Level: Low <br>',
+            queueSpeedLevel: 'Queue Speed: Fast <br>',
+            serviceRating: 'Service Rating 4/5 <br>',
+            description: 'relic',
+            },
+            
+            // Civil Registration and Population Office (2) -> KTP
+            {
+            category: "Civil Registration and Population Office / Dukcapil / KTP",
+            title: 'Dinas Kependudukan Dan Catatan Sipil Balikpapan <hr>',
+            long: 116.829990,
+            lat: -1.243360,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 9 <br>',
+            averageQueueTime: 'Avg Queue Time: 1m 34s <br>',
+            crowdLevel: 'Crowd Level: Low <br>',
+            queueSpeedLevel: 'Queue Speed: Fast <br>',
+            serviceRating: 'Service Rating: 4/5 <br>',
+            description: 'relic',
+            },
+            {
+            category: "Civil Registration and Population Office / Dukcapil / KTP",
+            title: 'Dinas Dukcapil Banjarbaru <hr>',
+            long: 114.743930,
+            lat: -3.440710,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 5 <br>',
+            averageQueueTime: 'Avg Queue Time: 12m 12s <br>',
+            crowdLevel: 'Crowd Level: Low <br>',
+            queueSpeedLevel: 'Queue Speed: Low <br>',
+            serviceRating: 'Service Rating: 3.1/5 <br>',
+            description: 'relic',
+            },
+
+            // Police Department (2) -> Firearm Permit
+            // Kepemilikan senjata api pasal berapa?
+            // Menurut pasal 9 UU No. 8 Tahun 1948, setiap orang atau warga sipil yang mempunyai dan memakai senjata api harus mempunyai surat izin pemakaian senjata api menurut contoh yang ditetapkan oleh Kepala Kepolisian Negara.
+            {
+            category: "Police Department / Polda / Surat Izin Pemakaian Senjata Api / Firearm Ownership Permit",
+            title: 'Bagdalpers Biro SDM Polda Kalimantan Barat <hr>',
+            long: 109.349120,
+            lat: -0.068820,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 3 <br>',
+            averageQueueTime: 'Avg Queue Time: 15m 24s <br>',
+            crowdLevel: 'Crowd Level: Low <br>',
+            queueSpeedLevel: 'Queue Speed: Low <br>',
+            serviceRating: 'Service Rating: 4/5 <br>',
+            description: 'relic',
+            },
+            {
+            category: "Police Department / Polda / Surat Izin Pemakaian Senjata Api / Firearm Ownership Permit",
+            title: 'Kantor Kepolisian Daerah "POLDA" Kalimantan Utara <hr>',
+            long: 116.496258,
+            lat: 3.456387,
+            isOfficeOpen: "Office Status: Open <br>",
+            openingToClosingTime: "Hours: 8.00AM - 1.50PM <br>",
+            currentQueueTotal: 'Active Queues: 7 <br>',
+            averageQueueTime: 'Avg Queue Time: 12m 15s <br>',
+            crowdLevel: 'Crowd Level: Low <br>',
+            queueSpeedLevel: 'Queue Speed: Low <br>',
+            serviceRating: 'Service Rating: 4/5 <br>',
+            description: 'relic',
+            },
+
+        ];
+
+        // Create Map
+        const map = new ol.Map({
+            layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM(),
+            }),
+            ],
+            overlays: [overlay],
+            target: 'map',
+            view: new ol.View({
+            center: ol.proj.fromLonLat([116.7088, -0.9730]),
+            zoom: 6,
+            }),
+        });
+
+        const features = [];
+        for (key in Model)
+        {
+            const _Data = Model[key];
+            const feature = new ol.Feature({
+            geometry: new ol.geom.Point(
+                ol.proj.fromLonLat([parseFloat(_Data.long), parseFloat(_Data.lat)])
+            ),
+            category: _Data.category,
+            title: _Data.title,
+            isOfficeOpen: _Data.isOfficeOpen,
+            openingToClosingTime: _Data.openingToClosingTime,
+            currentQueueTotal: _Data.currentQueueTotal,
+            averageQueueTime: _Data.averageQueueTime,
+            crowdLevel: _Data.crowdLevel,
+            queueSpeedLevel: _Data.queueSpeedLevel,
+            serviceRating: _Data.serviceRating,
+            description: _Data.description,
+            });
+            features.push(feature);
+        }
+
+        const markers = new ol.layer.Vector({
+            source: new ol.source.Vector({
+            features: features,
+            }),
+            style: new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: '../images/marker-icon.png',
+            }),
+            }),
+        });
+
+        map.addLayer(markers);  
+
+        map.on('click', function (evt) {
+            const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+            return feature;
+            });
+            if (feature) {
+                const coordinates = feature.getGeometry().getCoordinates();
+
+                // {
+                // category: "Driving Examination Center",
+                // title: 'Satuan Penyelenggara Administrasi SIM',
+                // long: 108.999298,
+                // lat: 0.943520,
+                // isOfficeOpen: "Open",
+                // openingToClosingTime: "8.00 AM - 1.50 PM (WITA)",
+                // currentQueueTotal: '4',
+                // averageQueueTime: '54s',
+                // crowdLevel: 'Low',
+                // queueSpeedLevel: 'Fast',
+                // description: 'relic',
+                // },
+
+                // Note for future dev's if you see this, don't show the actual variable names, that is information disclosure, an insecure practice.
+                content.innerHTML =
+                    '<code>' + feature.get('category') + '</code>' +
+                    '<h3><code>' + feature.get('title') + '</h3></code>' +
+                    '<code>' + feature.get('isOfficeOpen') + '</code>' +
+                    '<code>' + feature.get('openingToClosingTime') + '</code>' +
+                    '<code>' + feature.get('currentQueueTotal') + '</code>' +
+                    '<code>' + feature.get('averageQueueTime') + '</code>' +
+                    '<code>' + feature.get('crowdLevel') + '</code>' +
+                    '<code>' + feature.get('queueSpeedLevel') + '</code>' +
+                    '<code>' + feature.get('serviceRating') + '</code>'
+                    // '<code>' + feature.get('description') + '</code>'
+                overlay.setPosition(coordinates);
+                }
+        });
+        
+        // Search Bar
+        const searchInput = document.querySelector("[data-search]")
+
+        searchInput.addEventListener("input", e => {
+            const value = e.target.value.toLowerCase();
+
+            markers.getSource().clear(); // Clear current features
+
+            // Filter features based on the search input
+            const filteredFeatures = features.filter(feature => {
+                const isVisible = feature.get('category').toLowerCase().includes(value);
+                return isVisible;
+            });
+
+            // Add filtered features back to the layer source
+            markers.getSource().addFeatures(filteredFeatures);
+        });
+        
+    </script>
+  </body>
+</html>

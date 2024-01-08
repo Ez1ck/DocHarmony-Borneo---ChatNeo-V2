@@ -3,13 +3,63 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Overpass Mono', monospace;
-  }
-  
-  body {
+}
+
+/* OPENLAYERS Popup Styling */
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 280px;
+}
+.ol-popup:after, .ol-popup:before {
+top: 100%;
+border: solid transparent;
+content: " ";
+height: 0;
+width: 0;
+position: absolute;
+pointer-events: none;
+}
+.ol-popup:after {
+border-top-color: white;
+border-width: 10px;
+left: 48px;
+margin-left: -10px;
+}
+.ol-popup:before {
+border-top-color: #cccccc;
+border-width: 11px;
+left: 48px;
+margin-left: -11px;
+}
+.ol-popup-closer {
+text-decoration: none;
+position: absolute;
+top: 2px;
+right: 8px;
+}
+.ol-popup-closer:after {
+content: "✖";
+}
+
+#popup-content{
+    text-align: left;
+    color: black;
+}
+
+
+body {
     height: 100vh;
     background-color: #000;
     /* background-image: url('https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1517&q=80'); */
-    background-image: url('../images/background.jpg');
+    /* background-image: url('../images/background.jpg'); */
     background-size: cover;
     /* background-repeat: no-repeat; */
     /* background-position: center;  */
@@ -21,7 +71,7 @@ li{
 
 a{
     text-decoration: none;
-    color: #fff;
+    color: #000000;
     font-size: 1rem;
 }
 
@@ -44,6 +94,7 @@ header{
     align-items: center;
     justify-content: space-between;
 }
+
 
 .navbar .logo a{
     font-size: 1.5rem;
@@ -124,6 +175,7 @@ header{
     color: white;
 }
 
+
 .dropdown-menu .action-btn{
     width: 100%;
     display: flex;
@@ -136,7 +188,7 @@ section#hero{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     text-align: center;
     color: #fff;
 }
@@ -148,6 +200,21 @@ section#hero{
 
 #hero p{
     font-weight: lighter;
+}
+
+/* OpenLayers Map */
+#map {
+    /* position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%; */
+    width: 80%; /* Adjust the width as needed */
+    height: 75%; /* Adjust the height as needed */
+    margin: auto; /* Center the map horizontally */
+}
+
+.tags{
+    margin-bottom: 20px;
 }
 
 /* Responsive Design */
@@ -171,4 +238,15 @@ section#hero{
         left: 2rem;
         width: unset;
     }
+}
+
+/* Search Bar */
+.search-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+  }
+  
+input {
+font-size: 1rem;
 }
